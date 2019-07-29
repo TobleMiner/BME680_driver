@@ -351,13 +351,13 @@
  * @param[in/out] reg_data: Data array to read/write
  * @param[in] len: Length of the data array
  */
-typedef int8_t (*bme680_com_fptr_t)(uint8_t dev_id, uint8_t reg_addr, uint8_t *data, uint16_t len);
+typedef int8_t (*bme680_com_fptr_t)(uint8_t dev_id, uint8_t reg_addr, uint8_t *data, uint16_t len, void* priv);
 
 /*!
  * Delay function pointer
  * @param[in] period: Time period in milliseconds
  */
-typedef void (*bme680_delay_fptr_t)(uint32_t period);
+typedef void (*bme680_delay_fptr_t)(uint32_t period, void* priv);
 
 /*!
  * @brief Interface selection Enumerations
@@ -528,6 +528,8 @@ struct	bme680_dev {
 	uint8_t new_fields;
 	/*! Store the info messages */
 	uint8_t info_msg;
+	/*! Private data passed to function pointers */
+	void* fp_priv;
 	/*! Bus read function pointer */
 	bme680_com_fptr_t read;
 	/*! Bus write function pointer */
